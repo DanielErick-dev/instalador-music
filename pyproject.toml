@@ -1,0 +1,43 @@
+[project]
+name = "instalador-music"
+version = "2.0.0"
+description = "Instalador de músicas do YouTube em MP3 com interface web, fila, progresso e limpeza da biblioteca."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.162.4",
+    "mutagen>=1.48.1",
+    "uvicorn>=0.54.0",
+    "yt-dlp[default]>=2026.10.26",
+]
+
+[project.scripts]
+instalador = "instalador_music.web:main"
+musica = "instalador_music.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.10,<0.11"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM"]
+ignore = ["S603", "S607", "SIM102", "SIM105"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore:Using `httpx`"]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pip-audit>=2.10.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
